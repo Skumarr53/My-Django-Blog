@@ -30,6 +30,8 @@ git push origin master
 heroku create skumar-djangoblog
 ```
 
+### Set STATIC_ROOT
+
 ### Push project
 Now that heroku created Git Repo for us Let's push it to our GitHub in Heroku
 ```bash
