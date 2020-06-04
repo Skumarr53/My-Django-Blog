@@ -1,0 +1,51 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<style>
+
+    .entry-title {
+        text-align: left
+    }
+
+
+    .entry-title a {
+        font-size: 1.7rem;
+    }
+
+    p {
+        padding-top: 5px;
+        font-weight: 200;
+        font-size:17px; 
+        text-align: justify;
+    }
+
+</style>
+
+<div class="col-md-9 offset-md-2">
+    {% for post in posts %}
+    <h2 class="entry-title" ><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
+    <div>
+        {{ post.date_posted.date }} by Santhosh Kumar |&nbsp;
+        Categories:&nbsp;
+        {% for category in post.categories.all %}
+        <a href="{% url 'blog_category' category.name %}">
+            {{ category.name }}
+        </a>&nbsp;
+        {% endfor %}
+    </div>
+    <p class="content-markdown">{{ post.content }}...</p>
+    <hr/>
+    <br/>
+    {% endfor %}
+</div>
+
+
+<script>
+$('p').each(function(index, value) {
+    $text = $('p')[index].textContent;
+    $('p')[index].textContent = $text.replace(/<(.|\n)*?>/g, '').replace(/[\n]+/,'').replace(/(^\w+:|^)\/\//, '').slice(0, 400)
+});
+</script>
+
+
+{% endblock content %}

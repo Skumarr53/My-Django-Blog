@@ -1,0 +1,110 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!--loop throgh pre elements and add  editor id increment no then loop through these uniques ids to applty syntx highlighting  -->
+
+<style type="text/css">
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-family: inherit;
+    font-weight: 800;
+    line-height: 1.5;
+    color: inherit;
+    max-width: 80%;
+}
+
+
+ article {
+     letter-spacing: 0.015em; 
+     padding: 0px; 
+     padding-top: 40px; 
+     font-size: 24px; 
+     line-height: 1.58; 
+     font-family:  medium-content-serif-font, Cambria, Cochin, Georgia, Times, serif;
+     max-width: 80%;
+     }
+
+
+img {
+    display: block;
+    vertical-align: middle;
+    max-width: 1000px;
+    margin-left:auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+    border-style:None;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+pre {
+    font-family: Consolas,Menlo,'Deja Vu Sans Mono','Bitstream Vera Sans Mono',monospace;
+    font-size: .6em;    
+    line-height: 24px!important;
+    padding: 7px 30px;
+    margin: 15px 0;
+    display: block;
+    color:black;
+    background: #eee;
+}
+
+li {
+    padding-bottom: 5px;
+    margin-left: 25px;
+}
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js"></script>
+
+
+<article class="col-md-11 offset-md-1 text-left">
+    <h1 class="entry-title" itemprop="headline">{{ post.title }}</h1>
+    <medium class="text-right">
+        Date posted: {{ post.date_posted.date }} |&nbsp;
+        Categories:&nbsp;
+        {% for category in post.categories.all %}
+        <a href="{% url 'blog_category' category.name %}">
+            {{ category.name }}
+        </a>&nbsp;
+        {% endfor %}
+    </medium>
+    <article class="markdown-body content-markdown text-left">{{ post.content }}</article>
+    <h3>Leave a comment:</h3>
+    <form action="/blog/{{ post.pk }}/" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.author }}
+        </div>
+        <div class="form-group">
+            {{ form.body }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <h3>Comments:</h3>
+    {% for comment in comments %}
+    <p>
+        On {{comment.created_on.date }}&nbsp;
+        <b>{{ comment.author }}</b> wrote:
+    </p>
+    <p>{{ comment.body }}</p>
+    <hr>
+    {% endfor %}
+
+
+</article>
+
+
+
+
+
+{% endblock content %}

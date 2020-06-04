@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Skumar's Blog</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+      
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body class="col-12">
+        <style>
+            #side_news {
+                padding: 5px;
+            }
+
+            #side_news h2 {
+                padding: 5px;
+                font-size: 25px;
+                font-family: sans-serif;
+            }            
+
+
+
+            .topnav {
+                background-color: #333;
+                }
+
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                font-family: cursive;
+                text-decoration: none;
+                font-size: 17px;
+                }
+
+            .topnav-right {
+                float: right;
+                }
+
+        </style>
+        <div id="big_wrapper" class='mx-auto'>
+            <header id='head_section' class="logo">
+                <a href="{% url 'about' %}">My portfolio</a>
+            </header>
+            <div class='topnav'>
+                    <a class="mr-2"  href = "{% url 'about' %}">ABOUT ME</a>
+                    <a class="mr-2"  href = "{% url 'blog_index' %}">BLOG</a>
+                    <a class="mr-2"  href = "{% url 'project_index' %}">PROJECTS</a>
+                    <a class="mr-2"  href=#>CONTACT</a>
+                    <div class="topnav-right">
+                        <a class="mr-2" href = "https://www.linkedin.com/in/santhosh-kumar-choori/">LinkedIN</a>
+                        <a class="mr-2" href = "https://github.com/Skumarr53">GitHub</a>    
+                    </div>
+            </div>
+
+            <div id="main_section" class='row col-12 text-center'>
+                <div class='col-10 '>
+                    <section id="content">
+                        {% block  content %}{% endblock content%}
+                    </section>
+                </div>
+                
+                
+                <script src="https://code.jquery.com/jquery-1.12.4.min.js" 
+                integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js"></script>
+                
+                <script type="text/javascript">
+                $(document).ready(function(){
+                    $(".content-markdown").each(function(){
+                            var content = $(this).text()
+                            console.log(content)
+                            var markedContent = marked(content)
+                            console.log(markedContent)
+                            $(this).html(markedContent)
+                    })
+                    
+                })
+                </script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+
+                <div>
+                    <aside id="side_news">
+                        <h2>
+                            My recent posts
+                        </h2>
+                    </aside>
+                </div>
+            </div>
+    
+            <div>
+                <footer id="footer">
+                    copyright My website 2020
+                </footer>
+            </div>
+        </div>
+
+        <script>
+            hljs.initHighlightingOnLoad();
+        
+            $(function() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/1/strategy/source/json/{{ name }}',
+                dataType: "json",
+        
+                success: function (response) {
+                console.log(response);
+                $('pre code').attr('class','python')
+                $('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });
+                }
+            });
+            });
+        </script>
+
+    </body>
+</html>
