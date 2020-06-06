@@ -159,3 +159,11 @@ outputs a table where first column is the version number. Choose the version you
 ```bash
 heroku rollback 'VersionNo'
 ```
+
+## Atomated processing md files to HTML posts on Heroku
+
+```bash
+heroku run bash
+python manage.py shell
+exec(open("blog/markdown2post.py").read())
+```
