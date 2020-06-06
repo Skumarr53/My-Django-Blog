@@ -61,7 +61,7 @@
 
 <script>
 $('p').each(function(index, value) {
-    $text = $('p')[index].textContent.slice(0, 1000);exi
+    $text = $('p')[index].textContent.slice(0, 1000);
     $('p')[index].textContent = $text.replace(/<(.|\n)*?>/g, '').replace(/[\n]+/,'').replace(/(^\w+:|^)\/\//, '').slice(0, 400)+'...'
 });
 </script>
