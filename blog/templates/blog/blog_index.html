@@ -9,41 +9,60 @@
 
 
     .entry-title a {
-        font-size: 1.7rem;
+        font-size: 2rem;
+        font-family:  medium-content-serif-font, Cambria, Cochin, Georgia, Times, serif;
+    }
+
+    .wrapper {
+    border: 0.1px solid darkgrey;
+    margin: 50px;
+    padding: 20px 50px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    }
+
+    .pub-details{
+        padding-bottom: 10px;
+        text-align: left;
+        font-family: monospace;
+        font-weight: 700;
+        font-size: 17px;
     }
 
     p {
         padding-top: 5px;
         font-weight: 200;
-        font-size:17px; 
+        font-size:25px; 
         text-align: justify;
+        font-family:  medium-content-serif-font, Cambria, Cochin, Georgia, Times, serif;
     }
 
 </style>
 
 <div class="col-md-9 offset-md-2">
     {% for post in posts %}
-    <h2 class="entry-title" ><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
-    <div>
-        {{ post.date_posted.date }} by Santhosh Kumar |&nbsp;
-        Categories:&nbsp;
-        {% for category in post.categories.all %}
-        <a href="{% url 'blog_category' category.name %}">
-            {{ category.name }}
-        </a>&nbsp;
-        {% endfor %}
+    <div class="wrapper">
+        <h2 class="entry-title" ><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
+        <div class="pub-details">
+            {{ post.date_posted.date }} by Santhosh Kumar |&nbsp;
+            Categories:&nbsp;
+            {% for category in post.categories.all %}
+            <a href="{% url 'blog_category' category.name %}">
+                {{ category.name }}
+            </a>&nbsp;
+            {% endfor %}
+        </div>
+        <p class="content-markdown">{{ post.content }}...</p>
     </div>
-    <p class="content-markdown">{{ post.content }}...</p>
-    <hr/>
-    <br/>
+    <!--<hr/>-->
+    <!--<br/>-->
     {% endfor %}
 </div>
 
 
 <script>
 $('p').each(function(index, value) {
-    $text = $('p')[index].textContent;
-    $('p')[index].textContent = $text.replace(/<(.|\n)*?>/g, '').replace(/[\n]+/,'').replace(/(^\w+:|^)\/\//, '').slice(0, 400)
+    $text = $('p')[index].textContent.slice(0, 1000);exi
+    $('p')[index].textContent = $text.replace(/<(.|\n)*?>/g, '').replace(/[\n]+/,'').replace(/(^\w+:|^)\/\//, '').slice(0, 400)+'...'
 });
 </script>
 

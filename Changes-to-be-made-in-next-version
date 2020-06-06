@@ -1,0 +1,14 @@
+1. Add captions to images
+2. Fill the Projects section with projects you have done
+3. Add search bar on Blog list page
+4. Work on grammear mistakes and clarity in blogs
+    blog/posts_markdown/Designing-the-interactive-web-application-to-deploy-your-ML-model
+    blog/posts_markdown/How-to-use-Selenium-as-life-saver-when-dealing-with-boring-tasks
+5. Think about replacing existing post to avoid duplicae posts 'markdown2post.py'
+6. Add your image on 'About me' section
+7. add Content table on the left in blog post and Also think about filling 'My Recent works' on right post.
+8. Work on improving asthetics.
+9. Add a feature to share blogs on social media like LinkedIn, twitter etc
+10. Allow user to regiter and log in 
+11. optimize blog list descrption text processing (slice down content)
+12. Separate blog thumnails by adding border and think of adding a topic related image in thumbnil

@@ -2,11 +2,12 @@
 
 <img class="ef so s t u dq ai ip" width="960" height="594" srcset="https://miro.medium.com/max/552/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 276w, https://miro.medium.com/max/1104/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 552w, https://miro.medium.com/max/1280/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 640w, https://miro.medium.com/max/1400/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 700w" sizes="700px" role="presentation" src="https://miro.medium.com/max/864/1*h5Zp7_iQM4CGRQI_fN-iwg.gif">
 
-*<center>application predicts the price of used car</center>*
+<center><i>application predicts the price of used car</i></center>
+
 <br>
 In this tutorial, let's work towards creating a web application out of the machine learning model we built in python using Flask. For demonstration purposes, I am using a model of my own that predicts the price of used cars in major cities of India. Dataset used here is from a hackathon hosted by [MachineHack](https://www.machinehack.com/). Go to the hackathon [homepage](https://www.machinehack.com/course/predicting-the-costs-of-used-cars-hackathon-by-imarticus/) to know more about the dataset. Dataset set contains features like Location, Manufacture details, car features such as Fuel type, Engine, and usage parameters. For understanding, web application development some basic knowledge of **HTML** and **JQuery** is useful but not mandatory. I will try my best to explain as we go along.  
 
-I encourage you to look at files as I go along explaining things. Go to this [git repository](https://github.com/Skumarr53/predicting-the-costs-of-used-cars) and download the *webApp* folder to your local.
+I encourage you to look at files as I go along explaining things. Go to this [git repository](https://github.com/Skumarr53/predicting-the-costs-of-used-cars) and download the *webApp* folder to your local. Please refer to the ```PricePredictions_UsedCars.ipynb``` to understand featurization and model selection pipeline.
 
 
 For deploying the ML model I am using the **Flask** web development framework. Web application setup mainly contains two files
