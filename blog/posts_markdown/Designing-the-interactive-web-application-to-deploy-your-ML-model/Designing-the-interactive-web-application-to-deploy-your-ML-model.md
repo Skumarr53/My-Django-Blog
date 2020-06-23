@@ -1,28 +1,25 @@
 
 
+In this article, I will share my experience in creating an interactive web application out of the ML model using the Flask framework. For demonstration purposes, I am using a model of my own that predicts the price of used cars in major cities of India. Dataset used here is from a hackathon hosted by [MachineHack](https://www.machinehack.com/). Go to the hackathon [homepage](https://www.machinehack.com/course/predicting-the-costs-of-used-cars-hackathon-by-imarticus/) to know more about the dataset. Dataset set contains features like Location, Manufacture details, car features such as Fuel type, Engine, and usage parameters. To understand the code some basic knowledge of HTML and JQuery is useful but not mandatory. I will try my best to explain as we go along. Have a glance at the working application.
+
 <img class="ef so s t u dq ai ip" width="960" height="594" srcset="https://miro.medium.com/max/552/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 276w, https://miro.medium.com/max/1104/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 552w, https://miro.medium.com/max/1280/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 640w, https://miro.medium.com/max/1400/1*h5Zp7_iQM4CGRQI_fN-iwg.gif 700w" sizes="700px" role="presentation" src="https://miro.medium.com/max/864/1*h5Zp7_iQM4CGRQI_fN-iwg.gif">
 
-<center><i>application predicts the price of used car</i></center>
+<center><i>application predicts the price of used car</i></center></br>
 
-<br>
-In this tutorial, let's work towards creating a web application out of the machine learning model we built in python using Flask. For demonstration purposes, I am using a model of my own that predicts the price of used cars in major cities of India. Dataset used here is from a hackathon hosted by [MachineHack](https://www.machinehack.com/). Go to the hackathon [homepage](https://www.machinehack.com/course/predicting-the-costs-of-used-cars-hackathon-by-imarticus/) to know more about the dataset. Dataset set contains features like Location, Manufacture details, car features such as Fuel type, Engine, and usage parameters. For understanding, web application development some basic knowledge of **HTML** and **JQuery** is useful but not mandatory. I will try my best to explain as we go along.  
-
-I encourage you to look at files as I go along explaining things. Go to this [git repository](https://github.com/Skumarr53/predicting-the-costs-of-used-cars) and download the *webApp* folder to your local. Please refer to the ```PricePredictions_UsedCars.ipynb``` to understand featurization and model selection pipeline.
+I encourage you to look at files as I go along explaining things. Go to this [git repository](https://github.com/Skumarr53/predicting-the-costs-of-used-cars) and download the *webApp* folder to your local. Please refer to the ```PricePredictions_UsedCars.ipynb``` if you want to understand the featurization and model selection pipeline.
 
 
-For deploying the ML model I am using the **Flask** web development framework. Web application setup mainly contains two files
+This application is developed using the **Flask** web development framework. Web application setup contains two files
 1. Application.py - python script that handles routing and preforms computation in the backend.
 
 2. index.html - HTML file that acts as a GUI interface between client and server. It allows users to submit inputs and transfers them to application.py for computation and renders output on the interface.
 
-explains variables and types
+Other python objects used in *Flask* application:
+1. **GBM_Regressor_pipeline.pkl** - Pickle object that encodes all the preprocessing, feature transformation, and model trained model parameters. Sklearn's **pipeline** is a great way to store work-flow for reproducibility as in this case. Raw inputs from users passed into the pipeline which applies transformations and then predicts price.  
 
-Input files used into *Flask* application:
-1. GBM_Regressor_pipeline.pkl - pickle object that encodes all the preprocessing, feature transformation, and model trained model parameters. Sklearn's **pipeline** is a great way to store work-flow for reproducibility as in this case. Raw inputs from users passed into the pipeline which applies transformations and then predicts price.  
+2. **Encoded_dicts.pkl** - There are categorical variables in featuers. we need to pass them along with the encoded numerical values. This pickle object stores mapping hash table.
 
-2. Encoded_dicts.pkl - As I mentioned, there are categorical variables we need to pass mappings along with the encoded values. This pickle object that stores labels and encodes mappings for categorical variables.
-
-3. model2brand.pkl - pickle object that stores dictionary of the brand and models mappings i.e **brand** as *key* and list of car models belong to that brand as *value*. This is used to filter models for user-selected **brand**.
+3. **model2brand.pkl** -  *Model* feature is partially dependent on the *Brand* feature. Dependent in the sense a set of models are unique to a particular brand. When a user selects a brand, only the models that belong to the selected brand should appear in model selection dropdown object (```choose a model```). To make it possible, we need to store a dictionary of the brand and models set mappings i.e brand as *key* and set of car models belong to that brand as *value*. This is used to filter models for the user-selected brand.
 
 
 ``` python
@@ -63,7 +60,8 @@ def startup():
     with open('../model2brand.pkl', 'rb') as f:
         model2brand = pickle.load(f)
 ```
-```@application.before_first_request``` is the decorator that calls function ```startup``` when the server is started or before any request has been placed. The function loads all the inputs into the app.
+
+```@application.before_first_request``` is the decorator that calls the function ```startup``` when the server starts. The function loads all the python objects.
 
 ``` python
 @application.route('/background_process', methods=['POST', 'GET'])
@@ -93,7 +91,7 @@ def background_process():
     return jsonify({'price_prediction':pred})
 ```
 
-```@application.route``` decorator calls ```background_process``` API, whenever route is requested (*'/background_process'* in this case). This function either uses default inputs ('GET' method) or retrieves inputs from request objects ('POST' method), predicts based on these inputs and outputs prediction in JSON format.
+```@application.route``` decorator calls ```background_process``` API, whenever this route is requested. This function uses default inputs ('GET' method) when page is loaded and retrieves inputs from request objects ('POST' method) as well. This funtion compute price based on provided inputs and outputs prediction in ```JSON``` format.
 
 finally,
 ``` python
@@ -103,8 +101,6 @@ def index():
     with open('../Encoded_dicts.pkl', 'rb') as f:
         le_brands_Encdict,le_models_Encdict,le_locations_Encdict,le_fuel_types_Encdict,le_transmissions_Encdict,le_owner_types_Encdict = pickle.load(f)
 
-
-
     return render_template( 'index.html', model2brand = model2brand,le_models_Encdict = le_models_Encdict,le_locations_Encdict = le_locations_Encdict, le_fuel_types_Encdict = le_fuel_types_Encdict, le_transmissions_Encdict = le_transmissions_Encdict, le_owner_types_Encdict = le_owner_types_Encdict, le_brands_Encdict = le_brands_Encdict,price_prediction = 17.09)
 
 ```
@@ -113,13 +109,13 @@ Renders *index.html* and Also pass other arguments to be used inside the templat
 
 ## Explore Contents in Index.html
 
-The core purpose which *index.html* has to serve is getting user arguments from the client-side and pass them to *application.py* script for processing. We need to create interactive elements that make it easy for the user to submit inputs.
+The core purpose of *index.html* is to get user arguments from the client-side and pass them to *application.py* script for processing and retrieve prediction. We need to create interactive elements that make it easy for the user to submit inputs.
 
-For collecting numerical inputs, let's use *slider* objects and for categorical inputs, it is appropriate to use *dropdown* object.
+As we noticed we have both numerical and categorical features. For collecting numerical inputs, I will use *slider* objects and for categorical inputs, it is appropriate to use *dropdown* objects.
 
 ### Slider object
 
-I am taking an example of *slider* HTML snippet and understand what's happening.
+Let's take a slider object ```HTML``` snippet and understand what's happening.
 
 ``` html
 <div class="slidecontainer">
@@ -128,16 +124,19 @@ I am taking an example of *slider* HTML snippet and understand what's happening.
 </div>
 ```
 
-* ```div``` tag separates objects within it from other elements. It's always preferable to use it.
-* ```span``` tag allows user to continue text in the same line but wants highlight text in some way like highlighting by color
-* ```label``` tag is used to indicate user what field he is providing input for (*Year* in this case).
-* ```input``` tag is the one that receives input from the user. The *min* and *max* attributes decide range, *value* holds current selection by the user, *class* tells what of object (*slider*  in this case) and *step* decides step size.
+* ```div``` tag separates objects within it from other elements. It's always preferable to separate objects from each other.
 
-Note: ```id``` attribute in each tag is important as they serve as unique identifiers for objects or tags, therefore, no two tags should have the same *id*.
+* ```label``` tag used to show the user what field he is providing input for (variable is *Year* in this case).
+
+* ```span``` tag allows us to highlight part of the text enclosed within ```label``` tag. Only the text inside this tag can be highlighted(right now it is empty). 
+
+* ```input``` tag is the one that receives input from the user. The *min* and *max* attributes decide slider range, *value* attribute holds selected value by the user, *class* the tells type of object (*slider*  in this case) and *step* decides step size of slider movement.
+
+Note: ```id``` attribute in each tag is important as it serves as a unique identifier of objects or tags, therefore, no two tags should have the same *id*.
 
 #### Making Slider object interactive
 
-Now that we have created *slider* object that allows users to select a value between a certain range. To let the user know what *value* he has selected we can pass the value inside *span* tag. Let see how this is done.
+Now that we have created a *slider* object which allows the user to select a value between a certain range. To let the user know what *value* he has selected we can pass the selected value inside the *span* tag. Let see how it's done.
 
 ```java
 var slider3 = $("#year_range");
@@ -147,40 +146,26 @@ $("#Year").html(slider3.val());
 the above snippet is Jquery script (a proxy of javascript that makes simple to code).
 
 What this snippet does is:
-* Creates a variable *slider3* and assigns tag with *year_range* as id (year input tag in this case). Now that we assigned we can modify or retrieve information from this tag.
 
-* We are interested *value* attribute of the tag selected as it holds user selected year. ```slider3.val()``` fetches this value and passes it inside *html()*  in the ```$("#Year").html()``` making it appear inside of the tag with id *Year* (*span* tag in this case) as text after "Year: ".
+* It creates a *slider3* variable which tag element with attribute```id=year_range```. This allows us to retrieve or modify attribute values.
 
-Now, all we did is to read *value* attribute from input tag and pass it along inside *label* tag. But, right now the object is not capable of recording other than the default value (provided by us) i.e user-provided values by moving slider. To do that we have to make objects detect *slider* movement.
+* As we are interested user-selected value stored in the *value* attribute. ```slider3.val()``` fetches this value and passing it inside *html()*  in the ```$("#Year").html()``` as text making it appear inside the tag with ```id=Year``` (*span* tag inside Year ```label``` tag).
+
+Now, all we did is to read the *value* attribute from input tag and pass it along inside the *label* tag. But, right now the object is not capable of recording other than the default value (provided by us). We need to make it detect slider movement and read the corresponding user-selected value.
 
 ``` java
 slider3.change(function() {
     $("#Year").html(slider3.val());
 })
 ```
-```slider3.change()``` detects slider movement and then calls ```function()``` that does same as the above one expect this and updates text inside *label* tag making it interactive.
 
-<!DOCTYPE html>
-<body>
-    <div class="slidecontainer">
-        <label> Year: <span id="Year">
-        </span></label>
-        <input type="range" min="1998" max="2019" value="2014" class="slider" id="year_range" step="1">
-
+```slider3.change()``` detects slider movement of ```slider3``` object and then calls ```function()``` that does the same as the above one except and updates text inside *label* tag making it interact with slider object.
 
 ### Dropdown object
 
-Now let's pick a dropdown object and understand how to make it work. As I already mentioned *dropdown* is used for categorical variables where the user selects an option and this option needs to be mapped to the number representing it, unlike *slider* object where the user input value is directly passed for model prediction. 
+As I already mentioned, the **dropdown** object is used for categorical variables where the user selects an option and this option needs to be mapped to the numerical value, unlike **slider** objects where the user input value is directly passed for model prediction. To achieve this, we need to have mapping python dictionaries.
 
-To achieve that we need to have mapping python dictionaries as well for each categorical variable. Let us understand how we can create a dropdown that allows users to submit input.
-
-``` html
-<div class="dropdownlist">
-    <label for="brand">Choose a Brand: <span><select id="brand"></select></span></label>                        
-</div>
-```
-
-The ```select``` tag in the above HTML snippet creates an empty dropdown list. To fill a dropdown with options, we need to use ```option``` tag inside ```select``` tag. But, what if we have a lot of options to fill in making this job cumbersome. In such a case, we can iterate the python dictionary with *brand* and label encode mappings like the one shown below with JQuery.
+below is the mapping hash table for the variable brand.
 
 ``` python
 {'Ambassador': 0,
@@ -199,6 +184,16 @@ The ```select``` tag in the above HTML snippet creates an empty dropdown list. T
  'Isuzu': 13}
 ```
 
+Let us understand how we can create a dropdown allowing users to pass input.
+
+``` html
+<div class="dropdownlist">
+    <label for="brand">Choose a Brand: <span><select id="brand"></select></span></label>                        
+</div>
+```
+
+The ```select``` tag in the above **HTML** snippet creates an empty dropdown list. To fill a dropdown with possible options, we use ```option``` tag inside ```select``` tag to store keys. But, what if we have a lot of keys to fill in which makes this job cumbersome. In such a case, we can iterate the dictionary keys.
+
 ``` java
 var brands = {{ le_brands_Encdict|safe }}
 for (let key in brands) {
@@ -209,7 +204,9 @@ for (let key in brands) {
     i++;
     }
 ```
-The above code creates a variable ```brands``` that stores *le_brands_Encdict* dictionary passed to template from application.py. while iterating dictionary *keys* it gets corresponding encoded value stores in variable ```value``` appends ```option``` inside the tag with id *brand* (```select``` tag in this case) filling the dropdown with options.  
+The above code creates a variable ```brands``` that stores *le_brands_Encdict* dictionary passed by ```index()``` function from **application.py**. while iterating dictionary *keys* it fetches *value* stores in variable ```value``` and then passes it inside a ```option``` tag created along with the *key*.
+
+```option``` tags appended inside the ```select``` tag with ```id=brand``` filling the dropdown with options.
 
 <div class="dropdownlist">
     <label for="brand">Choose a Brand: <span>
@@ -228,17 +225,17 @@ The above code creates a variable ```brands``` that stores *le_brands_Encdict* d
 </div>
 <br>
 
+
+below **Jquery** snippet fetches the **brand** the user has selected from dropdown options.
+
 ``` java
 $('#brand option:selected').html()
 ```
 
-the line above fetches the **brand** the user has selected. 
-
-
-Using the discussed approach we need *slider* and *dropdown* objects for the rest of the variables.
+I have explained taking two objects as reference (**year** for numerical and **brand** for categorical). we have similar objects for the rest of the variables.
 
 ## Passing user inputs to the function
-Till now we have discussed how we could get user input in the background we need to pass those to  ```background_process()``` function that predicts price.
+Till now we have discussed how we could get user inputs in the background. Now, we have to pass those to  ```background_process()``` function that computes price.
 
 
 ``` javascript
@@ -280,6 +277,8 @@ $(document).on('change', function () {fetchdata()});
 
 ```
 
-Let's go through the above code snippet. ```$(document).mouseup()``` and ```$(document).on``` are the event listeners that captures mouse clicks and drop down changes respectively, then calls ```fetchdata()``` function that routes to ```url_for('background_process')``` calling ```background_process``` API. The *data* argument inside the function collects inputs from all the objects and passes them to ```background_process``` function as arguments and outputs a *json* object *price_prediction* as key and predicted price as value.
+Let's go through the above code snippet. ```$(document).mouseup()``` and ```$(document).on``` are the event listeners that captures mouse clicks and drop-down changes respectively, then calls ```fetchdata()``` function that routes to ```url_for('background_process')``` calling ```background_process``` API (refer to application.py file). The *data* argument inside the function collects user inputs from all the objects and passes them to ```background_process``` function as arguments that compute price and then output a **JSON** object. The output **JSON** object has *key* ```price_prediction```   and price computed is *value*.
 
-Upon successful ```success: function(data)``` takes this *json* object and then passes predicted value ```data.price_prediction``` to the  ```update_dashboard``` function which in turn passes it to the tag with id ```estimated_price``` (```label``` tag in this case) displaying the price on the web page.
+Upon successful ```success: function(data)``` takes *JSON* object and then passes predicted value to the  ```update_dashboard``` function which in turn passes it to the tag with ```id = estimated_price``` (price ```label``` tag) displaying the predicted price on the web page.
+
+Thank you for reading.
