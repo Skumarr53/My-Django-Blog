@@ -12,14 +12,21 @@
 ### Files required:
 
 If you are using your model make sure you have the following.
-1. reqiurements.txt
-- The text contains the dependencies necessary for the smooth running of your application.
+1. reqiurements.txt - The text contains the dependencies necessary for the smooth running of your application.
 
-2. application.py
-- The main script which performs the real-time computation in the background.
+2. application.py - The main script which performs the real-time computation in the background.
 
-3. index.html
-- It is the webpage that acts as an interface between client/user and background process. index.html serves the collecting user-inputs, passes it along to application.py where predictions are computed, and renders the results on the client-side of the page.
+3. index.html - It is the webpage that acts as an interface between client/user and background process. index.html serves the collecting user-inputs, passes it along to application.py where predictions are computed, and renders the results on the client-side of the page.
+
+In case you are using my model, make sure the app works perfectly in your local machine. Clone the git repo to the local system and execute the following commands.
+
+``` python
+conda create -n CarPricePredict python=3.7 # create environment under 'CarPricePredict' name
+conda activate CarPricePredict # activate environment
+cd webapp/ # change directory to App deploymnet setup folder 
+pip3 install -r requirements.txt # install dependencies
+python3 application.py # launch application
+```
 
 I assume the app is working perfectly on your local. Let’s get started without further ado.
 
