@@ -13,6 +13,9 @@
   - [Machine Translation - Transformer based](#machine-translation---transformer-based)
 - [**Web Development**](#web-development)
   - [Building Portfolio website using Django - Heruko deployment](#building-portfolio-website-using-django---heruko-deployment)
+
+-----
+
 ## **Web Scraping**:
 ### [Web crawler for scraping stock fundamentals](https://github.com/Skumarr53/Stock-Fundamental-data-scraping-and-analysis)
 
