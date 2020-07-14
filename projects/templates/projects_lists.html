@@ -1,0 +1,102 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<style type="text/css">
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-family: inherit;
+    font-weight: 800;
+    line-height: 1.5;
+    color: inherit;
+    max-width: 80%;
+}
+
+
+article {
+    letter-spacing: 0.015em; 
+    padding: 0px; 
+    padding-top: 40px; 
+    font-size: 24px; 
+    line-height: 1.58; 
+    font-family:  medium-content-serif-font, Cambria, Cochin, Georgia, Times, serif;
+    max-width: 80%;
+    }
+
+
+img {
+    display: block;
+    vertical-align: middle;
+    max-width: 1000px;
+    margin-left:auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+    border-style:None;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+pre {
+    font-family: Consolas,Menlo,'Deja Vu Sans Mono','Bitstream Vera Sans Mono',monospace;
+    font-size: .6em;    
+    line-height: 24px!important;
+    padding: 7px 30px;
+    margin: 15px 0;
+    display: block;
+    color:black;
+    background: #eee;
+}
+
+li {
+    padding-bottom: 5px;
+    margin-left: 25px;
+}
+</style>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js"></script>
+
+<article class="col-md-11 offset-md-1 text-left">
+    <article id="text" class="markdown-body content-markdown text-left">{{ text }}</article>
+</article>
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#text").load("projects/Projects_list/projects_descrip.txt");
+    });
+
+    /*
+        jQuery.get('projects/Projects_list/projects_descrip.md', function(data) {
+    alert(data);
+    //process text file line by line
+    $('#article').html(data.replace('n',''));
+    });
+
+
+    2.
+    // $(document).ready(function() {
+        $("#lesen").click(function() {
+            $.ajax({
+                url : "helloworld.txt",
+                dataType: "text",
+                success : function (data) {
+                    $(".text").html(data);
+                }
+            });
+        });
+    });
+    */
+
+</script>
+
+{% endblock content %}

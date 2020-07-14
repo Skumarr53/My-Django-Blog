@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 
-#----------------Run the below commands to convert Medium to Markdown---
-#mediumexporter Link-to-article > path-of-output-md-file
-#For ex:
-#mediumexporter https://medium.com/@skumarr53/setting-up-python-jupyter-spark-integrated-environment-in-aws-ec2-instance-6dfd93a85c84 > medium_post.md
-
 #----------------run the below commands to upload all the md files and register in database----------
 #python manage.py shell
 #exec(open("blog/markdown2post.py").read())

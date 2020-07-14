@@ -138,3 +138,4 @@ dmypy.json
 cython_debug/
 MyDjangoBlog/__pycache__/settings.cpython-37.pyc
 MyDjangoBlog/__pycache__/urls.cpython-37.pyc
+aziokbd/.tmp_versions/aziokbd.mod

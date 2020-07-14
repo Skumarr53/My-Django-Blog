@@ -1,3 +1,4 @@
+from pathlib import Path
 from django.shortcuts import render
 from projects.models import Project
 
@@ -13,3 +14,9 @@ def project_detail(request, pk):
         'project': project
     }
     return render(request, 'project_detail.html', context)
+
+def project_list(request):
+    with open('projects/Projects_list/projects_descrip.md','r') as f:
+        text = f.read()
+    context = {'text': text}
+    return render(request,'projects_lists.html', context) 
