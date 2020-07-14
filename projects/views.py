@@ -16,7 +16,7 @@ def project_detail(request, pk):
     return render(request, 'project_detail.html', context)
 
 def project_list(request):
-    with open('projects/Projects_list/projects_descrip.md','r') as f:
+    with open('projects/ProPjects_list/readme.md','r') as f:
         text = f.read()
     context = {'text': text}
     return render(request,'projects_lists.html', context) 

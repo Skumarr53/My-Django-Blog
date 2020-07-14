@@ -13,9 +13,6 @@
   - [Machine Translation - Transformer based](#machine-translation---transformer-based)
 - [**Web Development**](#web-development)
   - [Building Portfolio website using Django - Heruko deployment](#building-portfolio-website-using-django---heruko-deployment)
-
--------
-
 ## **Web Scraping**:
 ### [Web crawler for scraping stock fundamentals](https://github.com/Skumarr53/Stock-Fundamental-data-scraping-and-analysis)
 
@@ -25,7 +22,7 @@ Topics: *Web scraping, Automation, Selenium, BeautifulSoup, stock investing*
 ![](https://raw.githubusercontent.com/Skumarr53/Stock-Fundamental-data-scraping-and-analysis/master/ScreenShots/WebCrawler_working.gif)
 <p align="center"><i>working demo of Web crawler</i></p>
 
-Built a web crawler to allow investors to choose fundamentally sound stocks for long term investment by generating review plots in automated fashion. Web crawler crawls selected stock pages, scrapes historical stock data, and generates plot on the fly.
+Built a web crawler to allow investors to choose fundamentally sound stocks for long term investment by generating review plots in an automated fashion. Web crawler crawls selected stock pages, scrapes historical stock data, and generates plot on the fly.
 
 -------
 
@@ -71,7 +68,7 @@ Built a recommendation system to make personal movie recommendations based on ea
 
 ### [Understanding PCA through image visualization](https://github.com/Skumarr53/Principal-Component-Analysis-testing-on-Image-data)
 
-Topics: *PCA, Image processing, Dimensionlity reduction*
+Topics: *PCA, Image processing, Dimensionality reduction*
 
 Built a PCA model from scratch in Python, then tested on Multi-spectral satellite image data consisting of 7 band images. The first three Principal components retained **93**% information, thus original data was reduced from 7 dimensions to 3 without losing much information.
 
