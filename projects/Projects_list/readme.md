@@ -9,6 +9,7 @@
   - [Netflix Recommendation: winners solution Implementation](#netflix-recommendation-winners-solution-implementation)
   - [Understanding PCA through image visualization](#understanding-pca-through-image-visualization)
 - [**Deep Learning**](#deep-learning)
+  - [Planet Amazon Kaggle](#planet-amazon-kaggle)
   - [Image Caption Generator](#image-caption-generator)
   - [Machine Translation - Transformer based](#machine-translation---transformer-based)
 - [**Web Development**](#web-development)
@@ -77,6 +78,14 @@ Built a PCA model from scratch in Python, then tested on Multi-spectral satellit
 
 -------
 ## **Deep Learning**
+
+### [Planet Amazon Kaggle](https://github.com/Skumarr53/Planet-Amazon-Kaggle)
+
+Topics: *Multi-label classification, CNN, transfer learning, Fastai*
+
+Built CNN model that identifies various atmospheric conditions and classes of land cover/land use, trained with **Fastai**, helping governments and local stakeholders respond more quickly and effectively to deforestation and human encroachment. Achieved **0.93** f-score using pre-trained **ResNet-50** architecture.
+
+-------
 
 ### [Image Caption Generator](https://github.com/Skumarr53/Image-Caption-Generation-using-Fastai)
 
