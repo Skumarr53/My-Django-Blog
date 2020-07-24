@@ -86,7 +86,7 @@ Topics: *PyTorch, Fastai, Caption Generation, Flask deployment, transfer learnin
 ![](https://raw.githubusercontent.com/Skumarr53/Image-Caption-Generation-using-Fastai/master/snapshots/caption_gen.gif)
 <p align="center"><i>working App developed using Flask</i></p>
 
-Implemented image caption generation method discussed in **Show, Attend and Tell** paper using **Fastai** framework to describe the content of images. For encoder part, pre-trained **ResNet50** model is used and **LSTM** for decoder. Achieved **24** **BLEU** score for Beam search size of 5. Designed a Web application for model deployment using the **Flask** framework.
+Implemented image caption generation method discussed in **Show, Attend and Tell** paper using **Fastai** framework to describe the content of images. For encoder part, pre-trained **ResNet-101** model is used and **LSTM** for decoder. Achieved **24** **BLEU** score for Beam search size of 5. Designed a Web application for model deployment using the **Flask** framework.
 
 -------
 
