@@ -12,6 +12,7 @@
   - [Planet Amazon Kaggle](#planet-amazon-kaggle)
   - [Image Caption Generator](#image-caption-generator)
   - [Machine Translation - Transformer based](#machine-translation---transformer-based)
+- [Demo](#demo)
 - [**Web Development**](#web-development)
   - [Building Portfolio website using Django - Heruko deployment](#building-portfolio-website-using-django---heruko-deployment)
 
@@ -102,6 +103,11 @@ Implemented image caption generation method discussed in **Show, Attend and Tell
 ### [Machine Translation - Transformer based](https://github.com/Skumarr53/Attention-is-All-you-Need-PyTorch)
 
 Topics: *PyTorch, NLP, Fastai, Bert transformer, Encoder-Decoder, Streamlit*
+
+## Demo
+
+![](https://raw.githubusercontent.com/Skumarr53/Attention-is-All-you-Need-PyTorch/master/Snapshots/Fr2En_translate.gif)
+<p align="center"><i>Demo of working App developed using Streamlit</i></p>
 
 Implemented **Transformer** based machine translation method discussed in **Attention Is All You Need** paper using **Fastai** framework to translate queries French-to-English. Achieved **50** **BLEU** score using **BERT** architecture. Designed a Web application for model deployment using **Streamlit** framework.
 
